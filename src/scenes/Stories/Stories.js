@@ -20,18 +20,18 @@ export class Stories extends Component {
   }
 
   componentWillMount() {
-    // /values/1.json
     // const host = 'https://fast-fjord-29570.herokuapp.com/';
-    // const url = `${host}${this.props.value}`;
+    // const url = `${host}values/1.json`;
     // fetch(url)
     // .then(response => response.json())
     // .then(stories => {
-    //   this.setState({ stories });
+    //   this.setState({ stories: stories.stories });
     // })
     // .catch(error => {
     //   console.error(error);
-    // })
-    this.setState({ stories: fixtureStories }, () => {
+    // });
+
+    this.setState({ stories: fixtureStories.stories }, () => {
       console.log(this.state.stories);
     });
   }
@@ -44,7 +44,7 @@ export class Stories extends Component {
     return (
       <View style={styles.container}>
         <Text>{this.props.value}</Text>
-        {this.state.stories.stories.map((story) => (
+        {this.state.stories.map((story) => (
           <TouchableHighlight>
             <Text>{story.story}</Text>
           </TouchableHighlight>
