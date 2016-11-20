@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 // import { Touchable } from '../../components';
+import { Stories } from '../Stories';
 
 export class App extends Component {
   constructor() {
@@ -31,12 +32,15 @@ export class App extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {this.state.values.map((value) => (
-          <TouchableHighlight key={value}>
-            <Text>{value}</Text>
-          </TouchableHighlight>
-        ))}
+      <View>
+        <View style={styles.container}>
+          {this.state.values.map((value) => (
+            <TouchableHighlight key={value}>
+              <Text>{value}</Text>
+            </TouchableHighlight>
+          ))}
+        </View>
+        <Stories value='bob' />
       </View>
     );
   }
