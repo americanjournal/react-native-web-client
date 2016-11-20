@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View,
-  TouchableHighlight
+  View
 } from 'react-native';
 
-// import fixtureStories from './fixtureStories.js';
+// import fixtureValues from './fixtureValues.js';
 
-export class Stories extends Component {
+export class Values extends Component {
   constructor() {
     super();
 
     this.state = {
-      stories: undefined
+      values: undefined
     };
 
     this._handlePress = this._handlePress.bind(this);
@@ -21,41 +20,41 @@ export class Stories extends Component {
 
   componentWillMount() {
     const host = 'https://fast-fjord-29570.herokuapp.com/';
-    const url = `${host}values/1.json`;
+    const url = `${host}values`;
     console.log(url);
     fetch(url)
     .then(response => response.json())
-    .then(stories => {
-      this.setState({ stories: stories.stories });
+    .then(values => {
+      console.log(values);
+      this.setState({ values: values.map((x) => x.name) });
     })
     .catch(error => {
       console.error(error);
     });
 
-    // this.setState({ stories: fixtureStories.stories }, () => {
-    //   console.log(this.state.stories);
+    // this.setState({ values: fixtureValues.values }, () => {
+    //   console.log(this.state.values);
     // });
   }
 
-  _handlePress() {
-    console.log('_handlePress');
+  _handlePress(value) {
+    this.props.setValue(value);
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>STORIES</Text>
-        <Text>{this.props.value}</Text>
-        {this.state.stories ? this.state.stories.map((story, i) => (
-          <Text key={i}>{story.story}</Text>
+        <Text>VALUES</Text>
+        {this.state.values ? this.state.values.map((value, i) => (
+          <Text key={i} onPress={() => {this._handlePress(value)}}>{value}</Text>
         )) : undefined}
       </View>
     );
   }
 }
 
-Stories.propTypes = {
-  value: React.PropTypes.string.isRequired
+Values.propTypes = {
+  setValue: React.PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({

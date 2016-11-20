@@ -7,12 +7,13 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
-  TouchableHighlight
+  Text
 } from 'react-native';
 
 // import { Touchable } from '../../components';
+
+import { Values } from '../Values';
 import { Stories } from '../Stories';
 
 export class App extends Component {
@@ -20,27 +21,29 @@ export class App extends Component {
     super();
 
     this.state = {
-      values: [ 'Patriotism', 'Environment', 'Justice' ]
+      page: 'Values',
+      value: undefined
     };
 
-    this._handlePress = this._handlePress.bind(this);
+    this.setValue = this.setValue.bind(this);
   }
 
-  _handlePress() {
-    console.log("Can't touched this?");
+  setPage(page) {
+    this.setState({ page });
+  }
+
+  setValue(value) {
+    this.setState({ value }, () => {
+      this.setPage('Stories');
+    });
   }
 
   render() {
     return (
-      <View>
-        <View style={styles.container}>
-          {this.state.values.map((value) => (
-            <TouchableHighlight key={value}>
-              <Text>{value}</Text>
-            </TouchableHighlight>
-          ))}
-        </View>
-        <Stories value='bob' />
+      <View style={styles.container}>
+        <Text onPress={() => {this.setPage('Values')}}>Home</Text>
+          {this.state.page === 'Values' ? <Values setValue={this.setValue} /> : undefined}
+          {this.state.page === 'Stories' ? <Stories value={this.state.value} /> : undefined}
       </View>
     );
   }
