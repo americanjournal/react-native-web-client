@@ -10,9 +10,3 @@ AppRegistry.registerComponent('App', () => App);
 AppRegistry.runApplication('App', {
   rootTag: document.getElementById('react-root')
 });
-
-/* API ENDPOINTS
-  /values
-  /values/:id
-  /stories/:id
-*/
