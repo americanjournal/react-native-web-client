@@ -6,7 +6,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-import fixtureStories from './fixtureStories.js';
+// import fixtureStories from './fixtureStories.js';
 
 export class Stories extends Component {
   constructor() {
@@ -20,20 +20,21 @@ export class Stories extends Component {
   }
 
   componentWillMount() {
-    // const host = 'https://fast-fjord-29570.herokuapp.com/';
-    // const url = `${host}values/1.json`;
-    // fetch(url)
-    // .then(response => response.json())
-    // .then(stories => {
-    //   this.setState({ stories: stories.stories });
-    // })
-    // .catch(error => {
-    //   console.error(error);
-    // });
-
-    this.setState({ stories: fixtureStories.stories }, () => {
-      console.log(this.state.stories);
+    const host = 'https://fast-fjord-29570.herokuapp.com/';
+    const url = `${host}values/1.json`;
+    console.log(url);
+    fetch(url)
+    .then(response => response.json())
+    .then(stories => {
+      this.setState({ stories: stories.stories });
+    })
+    .catch(error => {
+      console.error(error);
     });
+
+    // this.setState({ stories: fixtureStories.stories }, () => {
+    //   console.log(this.state.stories);
+    // });
   }
 
   _handlePress() {
@@ -44,11 +45,11 @@ export class Stories extends Component {
     return (
       <View style={styles.container}>
         <Text>{this.props.value}</Text>
-        {this.state.stories.map((story) => (
+        {this.state.stories ? this.state.stories.map((story) => (
           <TouchableHighlight>
             <Text>{story.story}</Text>
           </TouchableHighlight>
-        ))}
+        )) : undefined}
       </View>
     );
   }
